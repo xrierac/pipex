@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/10/30 13:40:25 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/10/30 14:07:10 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
+	str1 = s1;
+	str2 = s2;
+	while (n > 0)
 	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
+		n--;
 	}
-//	cpid = fork();
 	return (0);
 }

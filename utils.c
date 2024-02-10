@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
+/*   Updated: 2024/02/10 14:24:13 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "pipex.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+int	get_path(char **environ)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	int		i;
+	char 	*arr;
 
-	cpid = fork();
-	if (cpid == 0)
+	i = 0;
+	while (ft_strnstr(environ[i], "PATH", 4) == NULL && environ[i] != '\0')
+		i++;
+	if (environ[i] == '\0')
+		exit(WRONG_PATH);
+	arr = ft_split(environ[i], ':');
+	i = 0;
+	while (arr[i] != '\0')
 
-	else if (cpid == -1)
 
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
-	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
-	}
-//	cpid = fork();
-	return (0);
-}
+}	

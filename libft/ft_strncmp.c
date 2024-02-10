@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/10/30 16:44:48 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/01 11:02:12 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	int	i;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
+	i = 0;
+	while (n > 0)
 	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
+		if (s1[i] == '\0')
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		else if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+		n--;
 	}
-//	cpid = fork();
 	return (0);
 }

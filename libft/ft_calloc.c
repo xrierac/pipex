@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/10/30 15:58:33 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/09 11:58:30 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+void	*ft_calloc(size_t count, size_t size)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	size_t	len;
+	int		i;
+	char	*str;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
+	i = 0;
+	if ((count > 2147483648 && size > 1) || (count > 1 && size > 2147483648))
+		return (0);
+	len = count * size;
+	str = malloc(len);
+	if (!str)
+		return (0);
+	while (len > 0)
 	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
+		str[i++] = '\0';
+		len--;
 	}
-//	cpid = fork();
-	return (0);
+	return (str);
 }

@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/11/01 12:20:58 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/01 14:03:28 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	unsigned int	i;
+	char			*str;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
+	if (!s)
+		return (0);
+	i = 0;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
+		return (0);
+	while (s[i])
 	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
+		str[i] = f(i, s[i]);
+		i++;
 	}
-//	cpid = fork();
-	return (0);
+	str[i] = '\0';
+	return (str);
 }

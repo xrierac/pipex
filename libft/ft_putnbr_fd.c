@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/11/01 12:06:55 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/01 12:18:43 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	long	i;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
+	i = n;
+	if (i < 0)
 	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
+		ft_putchar_fd('-', fd);
+		i = -i;
 	}
-//	cpid = fork();
-	return (0);
+	if (i > 9)
+	{
+		ft_putnbr_fd(i / 10, fd);
+		ft_putchar_fd(i % 10 + '0', fd);
+	}
+	else if (i < 10)
+		ft_putchar_fd(i + '0', fd);
 }

@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/10/25 15:15:47 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/01 16:40:25 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		pipefd[2];
-	pid_t	cpid;
+	char	*str;
+	size_t	start;
+	size_t	end;
 
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
-	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
-	}
-//	cpid = fork();
-	return (0);
+	if (!s1 || !set)
+		return (ft_strdup(""));
+	start = 0;
+	end = ft_strlen(s1) - 1;
+	while (ft_inset(s1[start], set))
+		start++;
+	if (start > end)
+		return (ft_strdup(""));
+	while (ft_inset(s1[end], set))
+		end--;
+	str = ft_substr(s1, start, end - start + 1);
+	return (str);
 }

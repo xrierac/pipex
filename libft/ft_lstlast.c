@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/10 13:42:21 by xriera-c         ###   ########.fr       */
+/*   Created: 2023/11/04 11:15:31 by xriera-c          #+#    #+#             */
+/*   Updated: 2023/11/09 11:52:11 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-extern char **environ;
-int	main(int argc, char *argv[])
+t_list	*ft_lstlast(t_list *lst)
 {
-	int		pipefd[2];
-	pid_t	cpid;
-
-	cpid = fork();
-	if (cpid == 0)
-
-	else if (cpid == -1)
-
-	else
-
-//	if (argc != 5)
-//		perror("Wrong number of arguments");
-	if (argc == 5)
-	{
-		if (access(argv[1], F_OK) == -1)
-			perror("Error");
-		execve(
-
-	}
-//	cpid = fork();
-	return (0);
+	if (!lst)
+		return (0);
+	while ((lst -> next) != 0)
+		lst = lst -> next;
+	return (lst);
 }
