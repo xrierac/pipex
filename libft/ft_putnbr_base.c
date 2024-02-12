@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:04:25 by xriera-c          #+#    #+#             */
-/*   Updated: 2023/11/28 09:45:58 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:36:36 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -38,7 +38,7 @@ static int	ft_stop(char *base)
 		j++;
 	}
 	return (0);
-}	
+}
 
 void	ft_putnbr_base(int nbr, char *base)
 {
