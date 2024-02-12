@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/12 12:12:17 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:35:55 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	left_cmd(char **argv, char **environ, int pipefd[])
 	int	infile;
 
 	infile = open(argv[1], O_RDONLY, 00444);
+	if (infile == -1)
+		exit(EXIT_FAILURE);
 	dup2(infile, STDIN_FILENO);
-	close(infile);
+	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT_FILENO);
 	execute(argv[2], environ);
 }
@@ -30,9 +32,9 @@ void	right_cmd(char **argv, char **environ, int pipefd[])
 {
 	int	outfile;
 
-	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 00222);
+	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 00666);
 	dup2(outfile, STDOUT_FILENO);
-	close(outfile);
+	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
 	execute(argv[3], environ);
 }
@@ -48,12 +50,13 @@ int	main(int argc, char *argv[])
 	cpid = fork();
 	if (cpid == 0)
 		left_cmd(argv, environ, pipefd);
-	else if (cpid == -1)
-		perror("Error");
-	else
+	if (cpid == -1)
+		perror("\033[31mError");
+	if (wait(&cpid) == -1)
 	{
-		wait(&cpid);
-		right_cmd(argv, environ, pipefd);
-	}	
+		perror("\033[31mError\033[m.");
+		return (-1);
+	}
+	right_cmd(argv, environ, pipefd);
 	return (0);
 }
