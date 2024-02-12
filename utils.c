@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/12 12:12:23 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:10:31 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	execute(char *str, char **environ)
 	if (path == 0)
 	{
 		free_memory(cmd);
-		perror("Error");
+		perror("\033[31mError\033[0m. Unknown command");
+		exit(EXIT_FAILURE);
 	}
 	execve(path, cmd, environ);
 }
