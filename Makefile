@@ -13,12 +13,10 @@ LIBFT := $(LIBFT_DIR)/libft.a
 OBJS := $(SRCS:.c=.o)
 
 $(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) -Llibft -lft -o $(NAME)
 
 $(LIBFT) :
 	make -C $(LIBFT_DIR)
-	cp $(LIBFT) .
-	mv libft.a $(NAME)
 
 %.o:%.c
 	cc $(CFLAGS) -c $< -o $@ 
