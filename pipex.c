@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/12 14:48:10 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:00:51 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 
 extern char	**environ;
 
+void	error_exit(char *str)
+{
+	ft_putstr_fd("pipex: ", 2);
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
 void	left_cmd(char **argv, char **environ, int pipefd[])
 {
 	int	infile;
 
 	infile = open(argv[1], O_RDONLY, 0444);
 	if (infile == -1)
-		exit(EXIT_FAILURE);
+		error_exit(argv[1]);
 	dup2(infile, STDIN_FILENO);
 	close(pipefd[0]);
 	dup2(pipefd[1], STDOUT_FILENO);
@@ -33,6 +40,8 @@ void	right_cmd(char **argv, char **environ, int pipefd[])
 	int	outfile;
 
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (outfile == -1)
+		error_exit(argv[4]);
 	dup2(outfile, STDOUT_FILENO);
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
@@ -46,18 +55,21 @@ int	main(int argc, char *argv[])
 
 	if (argc == 5)
 	{
-		pipe(pipefd);
+		if (pipe(pipefd) == -1)
+			error_exit("pipe()");
 		cpid = fork();
 		if (cpid == 0)
 			left_cmd(argv, environ, pipefd);
 		if (cpid == -1)
-			perror("\033[31mError");
-		if (wait(&cpid) == -1)
+			error_exit("fork()");
+		if (cpid > 0)
 		{
-			perror("\033[31mError\033[m.");
-			return (-1);
+			if (wait(NULL) == -1)
+				error_exit("");
+			right_cmd(argv, environ, pipefd);
 		}
-		right_cmd(argv, environ, pipefd)
-	};
+	}
+	else
+		return (write(2, "Wrong number of arguments\n", 27));
 	return (0);
 }
