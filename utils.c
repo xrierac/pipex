@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/12 14:10:31 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:13:42 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ void	execute(char *str, char **environ)
 	path = get_path(environ, cmd[0]);
 	if (path == 0)
 	{
+		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		free_memory(cmd);
-		perror("\033[31mError\033[0m. Unknown command");
 		exit(EXIT_FAILURE);
 	}
-	execve(path, cmd, environ);
+	if (execve(path, cmd, environ) == -1)
+		error_exit(cmd[0]);
 }
