@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/14 16:00:51 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:54:37 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int argc, char *argv[])
 	int		pipefd[2];
 	pid_t	cpid;
 
+	if (!environ[0])
+		return (write(2, "Empty environment variable\n", 27));
 	if (argc == 5)
 	{
 		if (pipe(pipefd) == -1)
