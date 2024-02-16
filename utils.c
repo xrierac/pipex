@@ -6,14 +6,14 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/16 14:54:34 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:42:50 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 
-static char	**check_quotes(char *cmd)
+/*static char	**check_quotes(char *cmd)
 {
 	char	*s;
 
@@ -23,6 +23,7 @@ static char	**check_quotes(char *cmd)
 		
 	}
 }
+*/
 static char	**free_memory(char **arr)
 {
 	int	i;

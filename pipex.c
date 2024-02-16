@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/16 14:54:37 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:46:07 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	main(int argc, char *argv[])
 			error_exit("fork()");
 		if (cpid > 0)
 		{
-			if (wait(NULL) == -1)
-				error_exit("");
-			right_cmd(argv, environ, pipefd);
+			cpid = fork();
+			if (cpid == 0)
+				right_cmd(argv, environ, pipefd);
 		}
 	}
 	else
