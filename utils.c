@@ -6,14 +6,30 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/16 15:42:50 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:13:47 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 
-/*static char	**check_quotes(char *cmd)
+static int	number_quotes(char *str)
+{
+	int	n;
+
+	n = 0;
+	while (*str)
+	{
+		if (*str == ''')
+			n++;
+		str++;
+	}
+	if (n == 0)
+		return (1);
+	return (n);
+}
+
+static char	**split_quotes(char *cmd)
 {
 	char	*s;
 
@@ -23,7 +39,7 @@
 		
 	}
 }
-*/
+
 static char	**free_memory(char **arr)
 {
 	int	i;
@@ -68,6 +84,8 @@ void	execute(char *str, char **environ)
 {
 	char	**cmd;
 	char	*path;
+	
+	if (number_quotes(str) % 2 == 0)
 
 	cmd = ft_split(str, ' ');
 	path = get_path(environ, cmd[0]);
