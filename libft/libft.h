@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:38:31 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/12 14:37:20 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:26:37 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_inset(char c, char const *set);
+char	**ft_free_array(char **arr);
 
 /*List functions*/
 
