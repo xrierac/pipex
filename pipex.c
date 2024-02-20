@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/20 14:34:33 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:57:28 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	parent_process(char **environ, char **argv)
 	int		pipefd[2];
 	pid_t	cpid1;
 	pid_t	cpid2;
+	int		status;
 
 	if (pipe(pipefd) < 0)
 		error_exit("", 127);
@@ -70,9 +71,9 @@ int	parent_process(char **environ, char **argv)
 		right_cmd(argv, environ, pipefd);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	if (waitpid(cpid1, NULL, 0) == -1 || waitpid(cpid2, NULL, 0) == -1)
+	if (waitpid(cpid1, &status, 0) == -1 || waitpid(cpid2, &status, 0) == -1)
 		error_exit("", 127);
-	return (0);
+	return (status);
 }
 
 int	main(int argc, char *argv[])
@@ -83,7 +84,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	if (argc == 5)
-		parent_process(environ, argv);
+		return (parent_process(environ, argv));
 	else
 	{
 		ft_putstr_fd("Wrong number of arguments", 2);

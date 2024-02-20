@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/20 14:35:07 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:07:00 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,25 @@ static char	**get_cmd(char *str)
 	return (cmd);
 }
 
-char	*get_path(char **environ, char *cmd)
+static char	*check_environ(char **environ)
 {
-	int		i;
-	char	**arr;
-	char	*path;
+	int	i;
 
 	i = 0;
 	while (ft_strnstr(environ[i], "PATH", 4) == 0 && environ[i] != '\0')
 		i++;
 	if (environ[i] == '\0')
 		return (0);
-	arr = ft_split(environ[i] + 5, ':');
+	return (environ[i]);
+}
+
+char	*get_path(char **environ, char *cmd)
+{
+	int		i;
+	char	**arr;
+	char	*path;
+
+	arr = ft_split(check_environ(environ) + 5, ':');
 	cmd = ft_strjoin("/", cmd);
 	if (arr == 0 || cmd == 0)
 		error_exit("", 127);
