@@ -6,34 +6,60 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 13:59:33 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/19 16:37:44 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:31:33 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft/libft.h"
 
-static char	**split_quotes(char **cmd)
+static int	check_quotes(char *str, int c)
 {
-	char	**arr;
+	int	i;
+	int	p;
+
+	i = -1;
+	p = 0;
+	while (str[++i])
+	{
+		if (str[i] == c && ft_strchr(str + i + 1, c) != 0)
+		{
+			str[i] = ' ';
+			p = c;
+			while (str[++i] != c)
+			{
+				if (str[i] == ' ')
+					str[i] = c;
+			}
+			str[i] = ' ';
+		}
+	}
+	return (p);
+}
+
+static char	**get_cmd(char *str)
+{
+	char	**cmd;
 	int		i;
 	int		j;
 
-	i = -1;
-	j = -1;
-	arr = malloc(sizeof(char *) * (get_number_words(s, c, d) + 1));
-	if (!arr)
+	check_quotes(str, 39);
+	check_quotes(str, 34);
+	cmd = ft_split(str, ' ');
+	if (cmd == 0)
 		return (0);
-	while (cmd[++i])
+	if (ft_strchr(str, 39) != 0 || ft_strchr(str, 34) != 0)
 	{
-		if (ft_strchr(cmd[i], 39) != 0)
-
-
-		else
-			arr[++j] == ft_strdup(cmd[i]);
+		i = -1;
+		while (cmd[++i])
+		{
+			j = -1;
+			while (cmd[i][++j])
+				if (cmd[i][j] == 39 || cmd[i][j] == 34)
+					cmd[i][j] = ' ';
+		}
 	}
-	ft_free_array(cmd);
-	return (arr);
+	return (cmd);
 }
 
 char	*get_path(char **environ, char *cmd)
@@ -48,19 +74,16 @@ char	*get_path(char **environ, char *cmd)
 	if (environ[i] == '\0')
 		return (0);
 	arr = ft_split(environ[i] + 5, ':');
-	if (arr == 0)
-		error_exit("");
 	cmd = ft_strjoin("/", cmd);
-	if (cmd == 0)
+	if (arr == 0 || cmd == 0)
 		error_exit("");
 	i = -1;
 	while (arr[++i])
 	{
 		path = ft_strjoin(arr[i], cmd);
-		if (access(path, F_OK) == -1)
-			free(path);
-		else
+		if (access(path, F_OK) == 0)
 			break ;
+		free(path);
 	}
 	if (arr[i] == 0)
 		path = 0;
@@ -73,8 +96,8 @@ void	execute(char *str, char **environ)
 {
 	char	**cmd;
 	char	*path;
-	
-	cmd = ft_split(str, ' ');
+
+	cmd = get_cmd(str);
 	if (cmd == 0)
 		error_exit("");
 	path = get_path(environ, cmd[0]);
