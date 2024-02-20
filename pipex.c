@@ -6,7 +6,7 @@
 /*   By: xriera-c <xriera-c@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:50:40 by xriera-c          #+#    #+#             */
-/*   Updated: 2024/02/20 14:57:28 by xriera-c         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:23:21 by xriera-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	parent_process(char **environ, char **argv)
 		right_cmd(argv, environ, pipefd);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	if (waitpid(cpid1, &status, 0) == -1 || waitpid(cpid2, &status, 0) == -1)
+	if (waitpid(cpid1, NULL, 0) == -1 || waitpid(cpid2, &status, 0) == -1)
 		error_exit("", 127);
-	return (status);
+	return (WEXITSTATUS(status));
 }
 
 int	main(int argc, char *argv[])
